@@ -19,7 +19,6 @@ int hand = 1;
 int c;//card value added for hand1
 int d;//card value added for hand  int e;//next card suite
 int f;// next card value
-int g;//tracks who's turn it is
 int h;//decides if dealer hits or stays
 double w = 0;//wins     default 0
 double t = 0;//ties          ||
@@ -70,8 +69,8 @@ int main(){
         a = 0;
         b = 0;
         b2 = 0;
+        hand = 1;
         split = false;
-        g = 1;
         nn = rand()%13 + 1;
         oo = rand()%13 + 1;
         pp = rand()%13 + 1;
@@ -199,6 +198,7 @@ int main(){
                 cin >> ans;
                 if(ans==1 || ans==11){
                     pp = ans;
+                    cout << "        (" << ans << ")\n";
                     goto pr4;}
                 else{
                     cout << "Not an option\n"; 
@@ -211,6 +211,7 @@ int main(){
                 cin >> ans;
                 if(ans==1 || ans==11){
                     qq = ans;
+                    cout << "        (" << ans << ")\n";
                     goto starting;}
                 else{
                     cout << "Not an option\n"; 
@@ -342,108 +343,6 @@ int main(){
         b = pp;
         b2 = qq;}
         cout << "            " << b << endl;}}
-    while(g==2){
-        dealer:{
-            if(a<17){
-                noc++;
-                random2:{
-                f = rand()%13+1;}
-                if(f==1){
-                    if(aa<4){
-                        aa++;
-                        if(a+11<=21){
-                            ans = 11;}
-                        else{
-                            ans = 1;}
-                        cout << "A (" << ans << ")";
-                        f = ans;}
-                    else{
-                        goto random2;}}
-                else{
-                    if(f<=10){
-                        if(f==2){
-                            if(bb<4){
-                                cout << f;
-                                bb++;}
-                            else{
-                                goto random2;}}
-                        if(f==3){
-                            if(cc<4){
-                                cout << f;
-                                cc++;}
-                            else{
-                                goto random2;}}
-                        if(f==4){
-                            if(dd<4){
-                                cout << f;
-                                dd++;}
-                            else{
-                                goto random2;}}
-                        if(f==5){
-                            if(ee<4){
-                                cout << f;
-                                ee++;}
-                            else{
-                                goto random2;}}
-                        if(f==6){
-                            if(ff<4){
-                                cout << f;
-                                ff++;}
-                            else{
-                                goto random2;}}
-                        if(f==7){
-                            if(gg<4){
-                                cout << f;
-                                gg++;}
-                            else{
-                                goto random2;}}
-                        if(f==8){
-                            if(hh<4){
-                                cout << f;
-                                hh++;}
-                            else{
-                                goto random2;}}
-                        if(f==9){
-                            if(ii<4){
-                                cout << f;
-                                ii++;}
-                            else{
-                                goto random2;}}
-                        if(f==10){
-                            if(jj<4){
-                                cout << "T";
-                                jj++;}
-                            else{
-                                goto random2;}}}
-                    else{
-                        if(f==11){
-                            f = 10;
-                            if(kk<4){
-                                cout << "J";
-                                kk++;}
-                            else{
-                                goto random2;}}
-                        if(f==12){
-                            if(ll<4){
-                                cout << "Q";
-                                ll++;}
-                            else{
-                                goto random2;}}
-                        if(f==13){
-                            if(mm<4){
-                                cout << "K";
-                                mm++;}
-                            else{
-                                goto random2;}}}}
-                a = a + f;
-                cout << "\n";
-                if(a>21){
-                    goto end;}
-                else{
-                    goto dealer;}}
-            else{
-                goto end;}}}
-    while(g==1){
         player:{
         cin >> x;
         if(x=='q'){
@@ -527,7 +426,6 @@ int main(){
                             goto random;}}}
                 else{
                     if(f==11){
-                        f = 10;
                         if(kk<4){
                             cout << "        J";
                             kk++;}
@@ -544,7 +442,8 @@ int main(){
                             cout << "         K";
                             mm++;}
                         else{
-                            goto random;}}}}
+                            goto random;}}
+                            f = 10;}}
             if(hand==1){
             b = b + f;
             cout << "    " << b << "\n";
@@ -552,24 +451,125 @@ int main(){
                 goto end;}
             if(b>21&&split==true){
                 hand = 2;
-                cout << "Your second total will now be shown and added to\n       " << b2 << "\n";
-                goto random;}}
+                cout << "Your second total will now be shown and added to\n       " << b2 << "\n";}
+                goto player;}
             else{
             b2 = b2 + f;
             cout << "       " << b2 << "\n";
             if(b2>21){
-                goto end;}}}
+                goto end;}
+            goto player;}}
         if(x=='s'){
             if(split==false){
-            g++;}
+            goto dealer;}
             else{
             if(split==true&&hand==1){
             hand = 2;
             cout << "Your second total will now be shown and added to\n       " << b2 << "\n";
             goto player;}
             else{
-            g++;
-            }}}}}
+            goto dealer;
+            }}}}
+        dealer:{
+            if(a<17){
+                noc++;
+                random2:{
+                f = rand()%13+1;}
+                if(f==1){
+                    if(aa<4){
+                        aa++;
+                        if(a+11<=21){
+                            ans = 11;}
+                        else{
+                            ans = 1;}
+                        cout << "A (" << ans << ")";
+                        f = ans;}
+                    else{
+                        goto random2;}}
+                else{
+                    if(f<=10){
+                        if(f==2){
+                            if(bb<4){
+                                cout << f;
+                                bb++;}
+                            else{
+                                goto random2;}}
+                        if(f==3){
+                            if(cc<4){
+                                cout << f;
+                                cc++;}
+                            else{
+                                goto random2;}}
+                        if(f==4){
+                            if(dd<4){
+                                cout << f;
+                                dd++;}
+                            else{
+                                goto random2;}}
+                        if(f==5){
+                            if(ee<4){
+                                cout << f;
+                                ee++;}
+                            else{
+                                goto random2;}}
+                        if(f==6){
+                            if(ff<4){
+                                cout << f;
+                                ff++;}
+                            else{
+                                goto random2;}}
+                        if(f==7){
+                            if(gg<4){
+                                cout << f;
+                                gg++;}
+                            else{
+                                goto random2;}}
+                        if(f==8){
+                            if(hh<4){
+                                cout << f;
+                                hh++;}
+                            else{
+                                goto random2;}}
+                        if(f==9){
+                            if(ii<4){
+                                cout << f;
+                                ii++;}
+                            else{
+                                goto random2;}}
+                        if(f==10){
+                            if(jj<4){
+                                cout << "T";
+                                jj++;}
+                            else{
+                                goto random2;}}}
+                    else{
+                        if(f==11){
+                            if(kk<4){
+                                cout << "J";
+                                kk++;}
+                            else{
+                                goto random2;}}
+                        if(f==12){
+                            if(ll<4){
+                                cout << "Q";
+                                ll++;}
+                            else{
+                                goto random2;}}
+                        if(f==13){
+                            if(mm<4){
+                                cout << "K";
+                                mm++;}
+                            else{
+                                goto random2;}}
+                                f = 10;}}
+                a = a + f;
+                cout << "\n";
+                if(a>21){
+                    goto end;}
+                else{
+                    goto dealer;}}
+            else{
+                goto end;}}
     end:{
         int dec2;//used to compare the number of cards in the hand chosen to the number of cards in the dealers hand if there is a tie
         int dec;//used to decide the best hand to use against dealer if player split
